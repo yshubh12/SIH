@@ -1,0 +1,130 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/register_style.css' %}">
+    <title>Registration Page</title>
+</head>
+<body>
+
+<div class="container">
+    {% include "includes/alerts.html" %}
+    <form id="registrationForm" action="{% url 'register' %}" method="POST">
+        {% csrf_token %}
+        <h2>Sign Up</h2>
+        <h3>Would you like to continue as a</h3>
+<div class="form-row">
+    <div class="form-group radio-group">
+        <input type="radio" id="consumer" name="user_type" value="consumer" required>
+        <label for="consumer">Consumer</label>
+    </div>
+    <div class="form-group radio-group">
+        <input type="radio" id="producer" name="user_type" value="producer" required>
+        <label for="producer">Producer</label>
+    </div>
+</div>
+
+        <div id="consumer-form" class="form-group" style="display:none;">
+            <h2>Consumer Registration</h2>
+            <div class="form-row">
+                <div class="col form-group">
+                    <label for="id_first_name">First name</label>
+                    <input type="text" id="id_first_name" name="first_name" class="form-control">
+                </div>
+                <div class="col form-group">
+                    <label for="id_last_name">Last name</label>
+                    <input type="text" id="id_last_name" name="last_name" class="form-control">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="id_email">Email</label>
+                    <input type="email" id="id_email" name="email" class="form-control">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="id_phone_number">Phone Number</label>
+                    <input type="text" id="id_phone_number" name="phone_number" class="form-control">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="id_password">Create password</label>
+                    <input type="password" id="id_password" name="password" class="form-control">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="id_confirm_password">Repeat password</label>
+                    <input type="password" id="id_confirm_password" name="confirm_password" class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <div id="producer-form" class="form-group" style="display:none;">
+            <h2>Producer Registration</h2>
+            <div class="form-row">
+                <div class="col form-group">
+                    <label for="id_first_name_producer">First name</label>
+                    <input type="text" id="id_first_name_producer" name="first_name_producer" class="form-control">
+                </div>
+                <div class="col form-group">
+                    <label for="id_last_name_producer">Last name</label>
+                    <input type="text" id="id_last_name_producer" name="last_name_producer" class="form-control">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="id_email_producer">Email</label>
+                    <input type="email" id="id_email_producer" name="email_producer" class="form-control">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="id_phone_number_producer">Phone Number</label>
+                    <input type="text" id="id_phone_number_producer" name="phone_number_producer" class="form-control">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="id_password_producer">Create password</label>
+                    <input type="password" id="id_password_producer" name="password_producer" class="form-control">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="id_confirm_password_producer">Repeat password</label>
+                    <input type="password" id="id_confirm_password_producer" name="confirm_password_producer" class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block"> Register </button>
+        </div>
+    </form>
+    <p class="text-center mt-4">Have an account? <a href="{% url 'login' %}">Log In</a></p>
+        <br><br>
+</div>
+
+<script>
+    document.getElementById('consumer').addEventListener('click', function() {
+        document.getElementById('consumer-form').style.display = 'block';
+        document.getElementById('producer-form').style.display = 'none';
+        updateFormRequirements('consumer-form', true);
+        updateFormRequirements('producer-form', false);
+    });
+
+    document.getElementById('producer').addEventListener('click', function() {
+        document.getElementById('consumer-form').style.display = 'none';
+        document.getElementById('producer-form').style.display = 'block';
+        updateFormRequirements('consumer-form', false);
+        updateFormRequirements('producer-form', true);
+    });
+
+    function updateFormRequirements(formId, required) {
+        var inputs = document.querySelectorAll('#' + formId + ' input');
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].required = required;
+        }
+    }
+</script>
+
+</body>
+</html>

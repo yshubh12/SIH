@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="section-content padding-y bg">
+    <div class="container">
+
+        <!-- ============================ PRODUCT DETAIL ================================= -->
+        <div class="product-detail-card">
+            <div class="row">
+                <aside class="col-md-6">
+                    <div class="gallery-wrap"> 
+                        <div class="img-big-wrap">
+                            <a href="#"><img src="{{ single_product.images.url }}" alt="{{ single_product.product_name }}"></a>
+                        </div>
+                    </div>
+                </aside>
+                <main class="col-md-6 border-left">
+                    <form action="{% url 'add_cart' single_product.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="content-body">
+                            <h2 class="title">{{ single_product.product_name }}</h2>
+                            <div class="price mb-3"> 
+                                <var class="price h4">{{ single_product.price }}</var> 
+                            </div> 
+                            <p>{{ single_product.description }}</p>
+                            <hr>
+                            <div class="size-selection">
+                                <h6>Select Size</h6>
+                                <div class="btn-group">
+                                    {% for i in single_product.variation_set.sizes %}
+                                    <label class="btn-size">
+                                        <input type="radio" name="size" value="{{ i.variation_value | lower }}" required> {{ i.variation_value | capfirst }}
+                                    </label>
+                                    {% endfor %}
+                                </div> 
+                            </div>
+                            <hr>
+                            {% if single_product.stock <= 0 %}
+                                <h5 class="text-danger">Out Of Stock</h5>
+                            {% else %}
+                                {% if in_cart %}
+                                    <button type="submit" class="btn-primary">Add to Cart</button>
+                                    <a href="{% url 'cart' %}" class="btn-outline-primary">View Cart</a>
+                                {% else %}
+                                    <button type="submit" class="btn-primary">Add to Cart</button>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </form>
+                </main>
+            </div>
+        </div>
+        <!-- ============================ PRODUCT DETAIL END .// ================================= -->
+
+        <br>
+
+        <div class="customer-reviews">
+            <header class="section-heading">
+                <h3>Customer Reviews</h3>  
+            </header>
+            <div class="review">
+                <div class="review-header">
+                    <img src="{% static 'images/avatars/avatar1.jpg' %}" class="review-avatar">
+                    <div class="review-info">
+                        <span class="review-date text-muted">24.04.2020</span>  
+                        <h6 class="reviewer-name">Mike John</h6>
+                    </div>
+                </div>
+                <div class="review-body mt-3">
+                    <p>
+                        Dummy comment Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

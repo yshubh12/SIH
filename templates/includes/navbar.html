@@ -1,0 +1,72 @@
+{% load static %}
+
+<!-- Navigation Stuff -->
+<div class="header2">
+  <div class="logo">
+    <img src="" alt="Logo">
+  </div>
+
+  <div class="searching">
+    <form action="{% url 'search' %}" class="search" method="GET">
+      <input type="search" placeholder="Search..." name="keyword">
+      <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      <button><i class="fa-solid fa-camera"></i></button>
+      <button><i class="fa-solid fa-microphone"></i></button>
+    </form>
+  </div>
+
+  <div class="navbar">
+    <nav>
+      <button><a href="{% url 'home' %}" id="home">Home</a></button>
+      <button><a href="#" id="shop">Shop</a></button>
+
+      <div class="dropdown">
+        <button class="dropdown-button">Categories</button>
+        <ul class="dropdown-content">
+          <li><a class="dropdown-item" href="{% url 'store' %}">All Products</a></li>
+          {% for category in links %}
+            <li><a class="dropdown-item" href="{{ category.get_url }}">{{ category.category_name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <button><a href="#" id="contact">Contact</a></button>
+    </nav>
+  </div>
+</div>
+
+<div class="account-options">
+  <div id="google_translate_element"></div>
+
+  <div class="user-info">
+    <span id="welcome_user">Welcome, User!</span>
+    <button id="chatbot">ChatBot</button>
+    <a href="{% url 'cart' %}">
+      <button id="your_account">Your Cart</button>
+    </a>
+  </div>
+
+  <div class="auth-options">
+    {% if user.id is None %}
+      <div class="widget-header">
+        <small class="title text-muted">Welcome guest!</small>
+        <div>
+          <a href="{% url 'login' %}">Sign in</a> <span class="dark-transp"> | </span>
+          <a href="{% url 'register' %}">Register</a>
+        </div>
+      </div>
+    {% else %}
+      <div class="widget-header">
+        <small class="title text-muted">Welcome {{ user.first_name }}!</small>
+        <div>
+          <a href="{% url 'dashboard' %}">Dashboard</a> <span class="dark-transp"> | </span>
+          <a href="{% url 'logout' %}">Logout</a>
+        </div>
+      </div>
+    {% endif %}
+    <a href="{% url 'cart' %}" class="widget-header">
+      <div class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></div>
+      <span class="badge badge-pill badge-danger notify">{{ cart_count }}</span>
+    </a>
+  </div>
+</div>

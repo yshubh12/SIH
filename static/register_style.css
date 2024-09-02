@@ -1,0 +1,153 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f7f7f7;
+    overflow-y: auto; /* Allow vertical scrolling if necessary */
+}
+
+.container {
+    background: linear-gradient(135deg, #2980b9, #2c3e50);
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 100%;
+    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 90vh; /* Limit height to prevent overflow */
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+h2 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-size: 2em; /* Increased font size */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Add space between form groups */
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 48%; /* Take up approximately half the width */
+}
+
+label {
+    margin-bottom: 10px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.1em; /* Increased font size */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"] {
+    padding: 16px; /* Adjusted padding to account for border */
+    border-radius: 10px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    transition: background-color 0.3s ease, padding 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="tel"]:focus {
+    background-color: rgba(255, 255, 255, 1);
+    border: 2px solid #27ae60; /* Updated focus border */
+    padding: 14px; /* Adjusted padding to keep the input size consistent */
+}
+
+input[type="text"]:invalid,
+input[type="email"]:invalid,
+input[type="password"]:invalid,
+input[type="tel"]:invalid {
+    box-shadow: none;
+}
+
+button {
+    padding: 18px 36px;
+    border: none;
+    border-radius: 10px;
+    background-color: #27ae60;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #219653;
+    transform: scale(1.05); /* Added hover scaling effect */
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+    .container {
+        padding: 30px;
+        max-width: 90%;
+    }
+
+    .form-group {
+        flex-basis: 100%; /* Stack the labels and inputs vertically on small screens */
+    }
+
+    label, button {
+        font-size: 1em; /* Adjust font size for smaller screens */
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"] {
+        padding: 14px; /* Adjust padding for smaller screens */
+    }
+}
+
+
+.radio-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between the radio button and label */
+    margin-bottom: 20px;
+}
+
+.radio-group label {
+    margin-bottom: 0;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.1em; /* Increased font size */
+}
+
+.radio-group input[type="radio"] {
+    margin: 0;
+    transform: scale(1.2); /* Slightly enlarge the radio button */
+}
