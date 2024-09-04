@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'carts',
     'category',
     'orders',
+    'django_extensions',
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -83,8 +85,12 @@ AUTH_USER_MODEL = 'accounts.Account'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'nishabd',
+        'USER': 'postgres',
+        'PASSWORD':'shubh@123',
+        'HOST':'localhost',
+        'PORT': '5432',
     }
 }
 
