@@ -5,9 +5,7 @@
 
 <!-- ========================= SECTION PAGETOP ========================= -->
 <section class="section-pagetop bg">
-    <div class="container">
-        <h2 class="title-page">Our Store</h2>
-    </div> <!-- container -->
+   
 </section>
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content padding-y">
@@ -18,7 +16,7 @@
                     <article class="filter-group">
                         <header class="card-header">
                             <a href="#" class="toggle-collapse" data-target="#collapse_1">
-                                <i class="icon-control fa fa-chevron-down"></i>
+                                <!-- <i class="icon-control fa fa-chevron-down"></i> -->
                                 <h6 class="title">Categories</h6>
                             </a>
                         </header>
@@ -37,36 +35,26 @@
                     <article class="filter-group">
                         <header class="card-header">
                             <a href="#" class="toggle-collapse" data-target="#collapse_4">
-                                <i class="icon-control fa fa-chevron-down"></i>
+                                <!-- <i class="icon-control fa fa-chevron-down"></i> -->
                                 <h6 class="title">Sizes</h6>
                             </a>
                         </header>
                         <div class="filter-content collapse show" id="collapse_4">
                             <div class="card-body">
-                                <label class="checkbox-btn">
-                                    <input type="checkbox">
-                                    <span class="btn">XS</span>
-                                </label>
-                                <label class="checkbox-btn">
-                                    <input type="checkbox">
-                                    <span class="btn">SM</span>
-                                </label>
-                                <label class="checkbox-btn">
-                                    <input type="checkbox">
-                                    <span class="btn">LG</span>
-                                </label>
-                                <label class="checkbox-btn">
-                                    <input type="checkbox">
-                                    <span class="btn">XXL</span>
-                                </label>
-                            </div> <!-- card-body -->
+                                <ul class="list-menu">
+                                    <li><a href="{% url 'store' %}">All Products</a></li>
+                                    {% for category in links %}
+                                    <li><a href="{{ category.get_url }}">{{ category.category_name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         </div>
                     </article> <!-- filter-group -->
 
                     <article class="filter-group">
                         <header class="card-header">
                             <a href="#" class="toggle-collapse" data-target="#collapse_3">
-                                <i class="icon-control fa fa-chevron-down"></i>
+                                <!-- <i class="icon-control fa fa-chevron-down"></i> -->
                                 <h6 class="title">Price Range</h6>
                             </a>
                         </header>
@@ -106,6 +94,9 @@
             </aside> <!-- sidebar -->
 
             <main class="main-content col-md-9">
+                <div class="container">
+                    <h2 class="title-page">Our Store</h2>
+                </div> <!-- container -->
                 <header class="header border-bottom mb-4 pb-3">
                     <div class="form-inline">
                         <span class="results">Found <b>{{ product_count }}</b> items:</span>
@@ -114,52 +105,53 @@
 
                 <div class="product-list">
                     {% if products %}
-                        {% for product in products %}
-                        <div class="product-card">
-                            <div class="img-wrap">
-                                <a href='{{ product.get_url }}'>
-                                    <img src="{{ product.images.url }}" alt="{{ product.product_name }}">
-                                </a>
-                            </div> <!-- img-wrap -->
-                            <h2>{{ product.product_name }}</h2>
-                            <p>Description: {{ product.description }}</p>
-                            <p>Price: ${{ product.price }}</p>
-                            <a href="{{ product.get_url }}"><button>View Details</button></a>
-                        </div>
-                        {% endfor %}
+                    {% for product in products %}
+                    <div class="product-card">
+                        <div class="img-wrap">
+                            <a href='{{ product.get_url }}'>
+                                <img src="{{ product.images.url }}" alt="{{ product.product_name }}">
+                            </a>
+                        </div> <!-- img-wrap -->
+                        <h2>{{ product.product_name }}</h2>
+                        <p>Description: {{ product.description }}</p>
+                        <p>Price: ${{ product.price }}</p>
+                        <a href="{{ product.get_url }}"><button>View Details</button></a>
+                    </div>
+                    {% endfor %}
                     {% else %}
-                        <div>
-                            <h2>No Results Found</h2>
-                        </div>
+                    <div>
+                        <h2>No Results Found</h2>
+                    </div>
                     {% endif %}
-
-                    <!-- Pagination -->
-                    <nav class="pagination-nav">
-                        {% if products.has_other_pages %}
-                            <ul class="pagination">
-                                {% if products.has_previous %}
-                                    <li class="page-item"><a class="page-link" href="?page={{ products.previous_page_number }}">Previous</a></li>
-                                {% else %}
-                                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                                {% endif %}
-
-                                {% for i in products.paginator.page_range %}
-                                    {% if products.number == i %}
-                                        <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
-                                    {% else %}
-                                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                                    {% endif %}
-                                {% endfor %}
-
-                                {% if products.has_next %}
-                                    <li class="page-item"><a class="page-link" href="?page={{ products.next_page_number }}">Next</a></li>
-                                {% else %}
-                                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                                {% endif %}
-                            </ul>
-                        {% endif %}
-                    </nav>
                 </div>
+                <!-- Pagination -->
+                <nav class="pagination-nav">
+                    {% if products.has_other_pages %}
+                    <ul class="pagination">
+                        {% if products.has_previous %}
+                        <li class="page-item"><a class="page-link"
+                                href="?page={{ products.previous_page_number }}">Previous</a></li>
+                        {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                        {% endif %}
+
+                        {% for i in products.paginator.page_range %}
+                        {% if products.number == i %}
+                        <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if products.has_next %}
+                        <li class="page-item"><a class="page-link"
+                                href="?page={{ products.next_page_number }}">Next</a></li>
+                        {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                        {% endif %}
+                    </ul>
+                    {% endif %}
+                </nav>
             </main> <!-- main-content -->
         </div> <!-- row -->
     </div> <!-- container -->
